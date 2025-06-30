@@ -2,6 +2,7 @@
 echo "--------------------------------------------------"
 echo "> Instalando Java y Herramientas"
 echo "--------------------------------------------------"
+sudo apt-get update -qq
 sudo apt install -y -qq net-tools openjdk-17-jdk git
 
 

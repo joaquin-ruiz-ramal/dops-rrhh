@@ -1,69 +1,105 @@
-# Proyecto DataOps – ETL Automatizado
+# Proyecto ETL con Docker y Jenkins (DataOps)
 
-Este proyecto implementa un pipeline ETL automatizado como parte de un ejercicio académico en el diplomado de Ingeniería de Datos. El flujo extrae datos desde una base de datos PostgreSQL, aplica transformaciones con Python y exporta los resultados en formato CSV. Todo el proceso está empaquetado en Docker y preparado para ejecutarse mediante Jenkins en un flujo CI/CD.
+Este proyecto implementa un flujo ETL utilizando Python, PostgreSQL, Docker y Jenkins como parte de una práctica del diplomado de Ingeniería de Datos. El proceso sigue los principios de DataOps, incorporando automatización, trazabilidad y despliegue controlado.
 
-## Estructura del proyecto
+---
 
-```
+## Estructura del Proyecto
+
+
 dataops-rrhh/
-├── etl/
-│   ├── main.py              # Script ETL principal
-│   ├── requirements.txt     # Dependencias de Python
-├── output/                  # Carpeta para archivos exportados (.csv)
-├── Dockerfile               # Imagen Docker para ejecutar el ETL
-├── instalacionDocker.sh     # Script de instalación de Docker y herramientas
-├── docker-compose.yml       # Levanta Jenkins como contenedor
-├── docs/                    # Documentación técnica y capturas
-└── README.md                # Este archivo
-```
+│
+├── etl/                    # Contiene el script ETL (main.py) y el requirements.txt
+├── output/                 # Archivos CSV generados por el ETL
+├── docs/                   # Documentación del proyecto
+├── .gitignore              # Archivos a excluir del control de versiones
+├── Dockerfile              # Imagen Docker para ejecutar el ETL
+├── instalacionDocker.sh    # Script para preparar entorno en la VM
+├── docker-compose.yml      # Define el contenedor Jenkins
+└── README.md               # Este archivo
 
-## Instrucciones de uso
 
-### 1. Ejecutar localmente
+---
 
-```bash
+## Tecnologías utilizadas
+
+- *Python 3.13.2*  
+- *Pandas, SQLAlchemy, Psycopg2*  
+- *Docker Desktop (local)*  
+- *PostgreSQL (remoto)*  
+- *Jenkins (en VM Ubuntu con Docker)*  
+- *Git + GitHub*
+
+---
+
+## Instrucciones de ejecución local (opcional)
+
+1. Clonar el repositorio:
+
+bash
+git clone https://github.com/tu-usuario/dataops-rrhh.git
+cd dataops-rrhh
+
+
+2. Crear entorno virtual:
+
+bash
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+source venv/Scripts/activate  # En Windows
+
+
+3. Instalar dependencias:
+
+bash
 pip install -r etl/requirements.txt
+
+
+4. Ejecutar el ETL localmente:
+
+bash
 python etl/main.py
-```
 
-### 2. Ejecutar con Docker
 
-```bash
+---
+
+## Ejecutar con Docker
+
+bash
 docker build -t etl-job .
-docker run --rm -v "$(pwd)/output:/app/output" etl-job
-```
+docker run --rm -v "$PWD/output:/app/output" etl-job
 
-**Nota para Git Bash en Windows:** si hay espacios en la ruta, usar:
 
-```bash
-winpty docker run --rm -v "$(pwd)/output:/app/output" etl-job
-```
+*Si usas Git Bash y tienes rutas con espacios, usa winpty*:
 
-### 3. Desplegar Jenkins en una VM
+bash
+winpty docker run --rm -v "$PWD/output:/app/output" etl-job
 
-El archivo `instalacionDocker.sh` automatiza la instalación de Docker, Java y Git en una máquina virtual Linux. Una vez ejecutado, se puede iniciar Jenkins con:
 
-```bash
-docker-compose up -d
-```
+---
 
-Esto levanta Jenkins en el puerto 80 de la VM. Desde la interfaz web, se configuró un pipeline manual que:
+## Automatización CI/CD con Jenkins
 
-- Clona este repositorio
-- Construye la imagen Docker
-- Ejecuta el contenedor con el ETL
+- Jenkins fue desplegado en una VM Ubuntu mediante Docker
+- Se configuró un *proyecto libre*, sin Jenkinsfile
+- El pipeline realiza:
+  1. Clonación del repositorio
+  2. Construcción de la imagen etl-job
+  3. Ejecución del contenedor que genera el archivo .csv
+- Se habilitó un *webhook de GitHub* para disparar el pipeline automáticamente ante cada push
 
-Este procedimiento replica lo realizado en clase y no requiere un Jenkinsfile en el repositorio.
+---
 
-## Requisitos
+## Documentación
 
-- Python 3.10+ (localmente se usó 3.13.2)
-- Docker
-- Jenkins (opcional, para CI/CD)
-- Acceso a base de datos PostgreSQL (credenciales provistas por el diplomado)
+La documentación completa se encuentra en la carpeta docs/ e incluye:
 
-## Licencia
+- Descripción del flujo ETL
+- Estructura del proyecto
+- Evidencia del pipeline funcionando
+- Configuración del entorno
 
-Este proyecto es de uso académico y no debe utilizarse en producción sin validación adicional.
+---
+
+## 🙌 Autor
+
+*Joaquin Ruiz Ramal*  
