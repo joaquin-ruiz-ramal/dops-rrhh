@@ -10,3 +10,6 @@ __pycache__/
 
 # Checkpoints de Jupyter Notebook
 .ipynb_checkpoints/
+
+# Ignorar configuraciones de vscode
+.vscode/
