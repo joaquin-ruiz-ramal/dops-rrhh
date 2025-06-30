@@ -1,0 +1,12 @@
+# Entorno virtual
+venv/
+
+# Archivos de salida (opcional: puedes descomentar si no quieres subir CSVs)
+# output/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Checkpoints de Jupyter Notebook
+.ipynb_checkpoints/
