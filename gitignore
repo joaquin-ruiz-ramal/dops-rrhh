@@ -13,3 +13,7 @@ __pycache__/
 
 # Ignorar configuraciones de vscode
 .vscode/
+
+# Ignorar arhvios temporales de word
+~$*.docx
+
